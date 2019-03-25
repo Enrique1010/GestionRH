@@ -4,72 +4,45 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Despidos</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Inhabilitar Empleado</h3>
+
+<dt class="col-sm-2">
+    @Html.DisplayNameFor(model => model.Nombre)
+</dt>
+<dd class="col-sm-10">
+    @Html.DisplayFor(model => model.Nombre)
+</dd>
+<dt class="col-sm-2">
+    @Html.DisplayNameFor(model => model.Apellido)
+</dt>
+<dd class="col-sm-10">
+    @Html.DisplayFor(model => model.Apellido)
+</dd>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Borrar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group form-check">
+
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Estatus" />@if (Model.Estatus == true)
+                    {@Html.DisplayName("Activo")}
+                else
+                {@Html.DisplayName("Inactivo")}
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Inhabilitar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
 <div>
-    <h4>MantenimientoEmpleado</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CodigoEmpleado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CodigoEmpleado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Departamento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Departamento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaIngreso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaIngreso)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Salario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Salario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cargo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cargo)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <a asp-action="Index">volver a Lista Completa</a>
 </div>

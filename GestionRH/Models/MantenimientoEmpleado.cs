@@ -35,7 +35,7 @@ namespace GestionRH.Models
         public DateTime FechaIngreso { get; set; }
         [Required(ErrorMessage = "El Sueldo a Ganar del Empleado es Requerido")]
         [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString ="{0:C0}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString ="{0:#.##RD$}", ApplyFormatInEditMode = false)]
         public double Salario { get; set; }
         [Required(ErrorMessage ="El Estatus debe estar seleccionado")]
         public bool Estatus { get; set; }

@@ -18,10 +18,30 @@ namespace GestionRH.Controllers
             _context = context;
         }
 
-        // GET: MantenimientoEmpleadoes
+        // GET: MantenimientoEmpleados
         public async Task<IActionResult> Index()
         {
             return View(await _context.MantenimientoEmpleado.ToListAsync());
+        }
+        //busqueda por nombre y fecha
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(string busqueda, string fecha)
+        {
+            var nombres = from s in _context.MantenimientoEmpleado
+                           select s;
+            if (!String.IsNullOrEmpty(busqueda))
+            {
+                nombres = nombres.Where(s => s.Nombre.Contains(busqueda));
+            }
+            else if (!String.IsNullOrEmpty(fecha))
+            {
+                DateTime fechax = DateTime.Parse(fecha);
+                nombres = nombres.Where(s => s.FechaIngreso.Equals(fechax));
+            }
+
+            return View(await nombres.AsNoTracking().ToListAsync());
+
         }
 
         // GET: MantenimientoEmpleadoes/Details/5
@@ -79,7 +99,8 @@ namespace GestionRH.Controllers
                 return NotFound();
             }
 
-            var mantenimientoEmpleado = await _context.MantenimientoEmpleado.FindAsync(id);
+            var mantenimientoEmpleado = await _context.MantenimientoEmpleado
+                .FindAsync(id);
             if (mantenimientoEmpleado == null)
             {
                 return NotFound();
@@ -149,6 +170,17 @@ namespace GestionRH.Controllers
             _context.MantenimientoEmpleado.Remove(mantenimientoEmpleado);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //obtener el monto total de la nomina
+        public IActionResult NominaTotal(MantenimientoEmpleado empleado, ProcessNominas p)
+        {
+            p.Mes = DateTime.Today;
+            p.Age = DateTime.Now;
+            var nom = _context.MantenimientoEmpleado.Where(m=>m.Salario == empleado.Salario);
+            p.MontoTotal = nom.Sum(m=>m.Salario);
+            
+            return View(p);
         }
 
         private bool MantenimientoEmpleadoExists(int id)

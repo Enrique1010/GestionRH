@@ -7,8 +7,21 @@
 <h1>Lista de Todos los Empleados</h1>
 
 <p>
-    <a asp-action="Create">Agregar Empleado</a>
-</p>
+    <a asp-action="Create">Agregar Empleado +</a>
+</p> 
+
+<form asp-action="Index" method="post">
+    <div class="form-actions no-color">
+        <p>
+            <input type="search" name="busqueda" value=""> Buscar por Nombre<br>
+            <input type="search" name="fecha" value=""> Buscar por fecha de Ingreso<br>
+            <input type="submit" value="Buscar" class="btn btn-default" /> |
+            <a asp-action="Index">Volver a Lista Completa</a>
+        </p>
+    </div>
+</form>
+<a asp-action="NominaTotal">Ver Nomina total en el Mes</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -43,41 +56,49 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoEmpleado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Departamento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaIngreso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salario)
-            </td>
-            <td>
-                @if (item.Estatus==true) {@Html.DisplayName("Activo")}else if (item.Estatus==false) {@Html.DisplayName("Inactivo")}
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cargo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+
+            if(item.Estatus == true){
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoEmpleado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaIngreso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salario)
+                </td>
+                <td>
+                    @if (item.Estatus == true)
+                    {@Html.DisplayName("Activo")}
+                    else if (item.Estatus == false)
+                    {@Html.DisplayName("Inactivo")}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+            }
+            else { }
+        }
     </tbody>
 </table>

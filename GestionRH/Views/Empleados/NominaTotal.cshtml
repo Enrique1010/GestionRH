@@ -1,0 +1,35 @@
+﻿@model GestionRH.Models.ProcessNominas
+
+@{
+    ViewData["Title"] = "NominaTotal";
+}
+
+<h1>Nomina Total</h1>
+
+<div>
+    <h4>Nominas</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Año En Curso")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Mes en Curso")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Monto Total")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MontoTotal)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Volver a Lista de Empleados</a>
+</div>

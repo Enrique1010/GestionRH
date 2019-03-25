@@ -9,22 +9,22 @@ using GestionRH.Models;
 
 namespace GestionRH.Controllers
 {
-    public class DepartamentosController : Controller
+    public class CargosController : Controller
     {
         private readonly GestionRHContext _context;
 
-        public DepartamentosController(GestionRHContext context)
+        public CargosController(GestionRHContext context)
         {
             _context = context;
         }
 
-        // GET: Departamentos
+        // GET: Cargos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MantenimientoDepartamento.ToListAsync());
+            return View(await _context.MantenimientoCargo.ToListAsync());
         }
 
-        // GET: Departamentos/Details/5
+        // GET: Cargos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace GestionRH.Controllers
                 return NotFound();
             }
 
-            var mantenimientoDepartamento = await _context.MantenimientoDepartamento
+            var mantenimientoCargo = await _context.MantenimientoCargo
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (mantenimientoDepartamento == null)
+            if (mantenimientoCargo == null)
             {
                 return NotFound();
             }
 
-            return View(mantenimientoDepartamento);
+            return View(mantenimientoCargo);
         }
 
-        // GET: Departamentos/Create
+        // GET: Cargos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Departamentos/Create
+        // POST: Cargos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CodigoDepartamento,Nombre")] MantenimientoDepartamento mantenimientoDepartamento)
+        public async Task<IActionResult> Create([Bind("Id,CodigoCargo,NombreCargo")] MantenimientoCargo mantenimientoCargo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(mantenimientoDepartamento);
+                _context.Add(mantenimientoCargo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(mantenimientoDepartamento);
+            return View(mantenimientoCargo);
         }
 
-        // GET: Departamentos/Edit/5
+        // GET: Cargos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace GestionRH.Controllers
                 return NotFound();
             }
 
-            var mantenimientoDepartamento = await _context.MantenimientoDepartamento.FindAsync(id);
-            if (mantenimientoDepartamento == null)
+            var mantenimientoCargo = await _context.MantenimientoCargo.FindAsync(id);
+            if (mantenimientoCargo == null)
             {
                 return NotFound();
             }
-            return View(mantenimientoDepartamento);
+            return View(mantenimientoCargo);
         }
 
-        // POST: Departamentos/Edit/5
+        // POST: Cargos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoDepartamento,Nombre")] MantenimientoDepartamento mantenimientoDepartamento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoCargo,NombreCargo")] MantenimientoCargo mantenimientoCargo)
         {
-            if (id != mantenimientoDepartamento.Id)
+            if (id != mantenimientoCargo.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace GestionRH.Controllers
             {
                 try
                 {
-                    _context.Update(mantenimientoDepartamento);
+                    _context.Update(mantenimientoCargo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MantenimientoDepartamentoExists(mantenimientoDepartamento.Id))
+                    if (!MantenimientoCargoExists(mantenimientoCargo.Id))
                     {
                         return NotFound();
                     }
@@ -112,12 +112,41 @@ namespace GestionRH.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(mantenimientoDepartamento);
+            return View(mantenimientoCargo);
         }
 
-        private bool MantenimientoDepartamentoExists(int id)
+        // GET: Cargos/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            return _context.MantenimientoDepartamento.Any(e => e.Id == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var mantenimientoCargo = await _context.MantenimientoCargo
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (mantenimientoCargo == null)
+            {
+                return NotFound();
+            }
+
+            return View(mantenimientoCargo);
+        }
+
+        // POST: Cargos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var mantenimientoCargo = await _context.MantenimientoCargo.FindAsync(id);
+            _context.MantenimientoCargo.Remove(mantenimientoCargo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool MantenimientoCargoExists(int id)
+        {
+            return _context.MantenimientoCargo.Any(e => e.Id == id);
         }
     }
 }
