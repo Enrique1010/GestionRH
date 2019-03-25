@@ -14,13 +14,15 @@
     <div class="form-actions no-color">
         <p>
             <input type="search" name="busqueda" value=""> Buscar por Nombre<br>
-            <input type="search" name="fecha" value=""> Buscar por fecha de Ingreso<br>
+            <input type="date" name="fecha" value=""> Buscar por fecha de Ingreso<br>
             <input type="submit" value="Buscar" class="btn btn-default" /> |
             <a asp-action="Index">Volver a Lista Completa</a>
         </p>
     </div>
 </form>
-<a asp-action="NominaTotal">Ver Nomina total en el Mes</a>
+<a asp-action="NominaTotal">Ver Nomina total en el Mes</a> |
+<a asp-action="Vacaciones">Vacaciones</a>
+<br />
 
 <table class="table">
     <thead>

@@ -75,14 +75,8 @@ namespace GestionRH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CodigoEmpleado,Nombre,Apellido,Telefono,Departamento,FechaIngreso,Salario,Estatus,Cargo")] MantenimientoEmpleado mantenimientoEmpleado)
         {
-            var tel = from m in _context.MantenimientoEmpleado select m;
-            if (!String.IsNullOrEmpty(mantenimientoEmpleado.Telefono))
-            {
-                tel.Where(m => m.Telefono.Contains(mantenimientoEmpleado.Telefono));
-            }
             if (ModelState.IsValid)
             {
-                tel.Where(m => m.Telefono.Contains(mantenimientoEmpleado.Telefono));
                 mantenimientoEmpleado.Estatus = true;
                 _context.Add(mantenimientoEmpleado);
                 await _context.SaveChangesAsync();
@@ -172,15 +166,55 @@ namespace GestionRH.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //obtener el monto total de la nomina
-        public IActionResult NominaTotal(MantenimientoEmpleado empleado, ProcessNominas p)
+        //obtener el monto total de la nomina y Mostrarlo
+        public IActionResult NominaTotal(ProcessNominas p, MantenimientoEmpleado empleado)
         {
-            p.Mes = DateTime.Today;
-            p.Age = DateTime.Now;
-            var nom = _context.MantenimientoEmpleado.Where(m=>m.Salario == empleado.Salario);
-            p.MontoTotal = nom.Sum(m=>m.Salario);
-            
+                p.Mes = DateTime.Today;
+                p.Age = DateTime.Now;
+                var nom = from m in _context.MantenimientoEmpleado where(m.Estatus == true) select m.Salario;
+                p.MontoTotal = nom.Sum();
+
             return View(p);
+        }
+        //guarda el monto total de la nomina en la base de datos
+        public async Task<IActionResult> GuardarRegistro(ProcessNominas p, MantenimientoEmpleado empleado)
+        {
+                p.Mes = DateTime.Today;
+                p.Age = DateTime.Now;
+                var nom = from m in _context.MantenimientoEmpleado where (m.Estatus == true) select m.Salario;
+                p.MontoTotal = nom.Sum();
+                _context.Add(p);
+                await _context.SaveChangesAsync();
+
+            return View(p);
+        }
+
+        //Registrar Vacaciones para empleados
+        public async Task<IActionResult> Vacaciones()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //procesar las vacaciones en la bdd
+        public async Task<IActionResult> Vacaciones([Bind("Id,Empleado,Desde,Hasta,Correspondiente,Comentario")] ProcessVacaciones vacaciones)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(vacaciones);
+                    //_context.Update(empleado);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return RedirectToAction(nameof(Index));
+                }    
+            }
+            return View(vacaciones);
         }
 
         private bool MantenimientoEmpleadoExists(int id)

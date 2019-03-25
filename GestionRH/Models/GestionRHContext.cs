@@ -64,6 +64,8 @@ namespace GestionRH.Models
             {
                 entity.ToTable("Mantenimiento_Empleado");
 
+                entity.HasIndex(e => e.CodigoEmpleado).IsUnique();
+
                 entity.Property(e => e.Apellido)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -72,7 +74,8 @@ namespace GestionRH.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.CodigoEmpleado).HasColumnName("Codigo_empleado");
+                entity.Property(e => e.CodigoEmpleado)
+                .HasColumnName("Codigo_empleado");
                 
 
                 entity.Property(e => e.Departamento)
