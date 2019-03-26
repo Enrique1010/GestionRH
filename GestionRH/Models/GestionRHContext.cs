@@ -149,7 +149,7 @@ namespace GestionRH.Models
                     .HasColumnName("desde")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Empleados)
+                entity.Property(e => e.Empleado)
                     .IsRequired()
                     .HasMaxLength(50);
 

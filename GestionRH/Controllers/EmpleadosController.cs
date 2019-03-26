@@ -23,6 +23,12 @@ namespace GestionRH.Controllers
         {
             return View(await _context.MantenimientoEmpleado.ToListAsync());
         }
+        //get empleados inactivos
+        public async Task<IActionResult> Inactivo()
+        {
+            return View(await _context.MantenimientoEmpleado.ToListAsync());
+        }
+
         //busqueda por nombre y fecha
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -137,45 +143,7 @@ namespace GestionRH.Controllers
             return View(mantenimientoEmpleado);
         }
 
-        // GET: MantenimientoEmpleadoes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var mantenimientoEmpleado = await _context.MantenimientoEmpleado
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (mantenimientoEmpleado == null)
-            {
-                return NotFound();
-            }
-
-            return View(mantenimientoEmpleado);
-        }
-
-        // POST: MantenimientoEmpleadoes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var mantenimientoEmpleado = await _context.MantenimientoEmpleado.FindAsync(id);
-            _context.MantenimientoEmpleado.Remove(mantenimientoEmpleado);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        //obtener el monto total de la nomina y Mostrarlo
-        public IActionResult NominaTotal(ProcessNominas p, MantenimientoEmpleado empleado)
-        {
-                p.Mes = DateTime.Today;
-                p.Age = DateTime.Now;
-                var nom = from m in _context.MantenimientoEmpleado where(m.Estatus == true) select m.Salario;
-                p.MontoTotal = nom.Sum();
-
-            return View(p);
-        }
         //guarda el monto total de la nomina en la base de datos
         public async Task<IActionResult> GuardarRegistro(ProcessNominas p, MantenimientoEmpleado empleado)
         {
@@ -190,7 +158,7 @@ namespace GestionRH.Controllers
         }
 
         //Registrar Vacaciones para empleados
-        public async Task<IActionResult> Vacaciones()
+        public IActionResult Vacaciones()
         {
             return View();
         }
@@ -216,7 +184,76 @@ namespace GestionRH.Controllers
             }
             return View(vacaciones);
         }
+        //Registrar Permisos para empleados
+        public IActionResult Permisos()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //procesar los permisos en la bdd
+        public async Task<IActionResult> Permisos([Bind("Id,Empleado,Desde,Hasta,Comentario")] ProcessPermisos permisos)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(permisos);
+                    //_context.Update(empleado);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(permisos);
+        }
 
+        //Registrar Licencias para empleados
+        public IActionResult Licencias()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //procesar los permisos en la bdd
+        public async Task<IActionResult> Licencias([Bind("Id,Empleado,Desde,Hasta,Comentario,Motivo")] ProcessLicencias licencias)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(licencias);
+                    //_context.Update(empleado);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(licencias);
+        }
+        //mostrar Vacaciones
+        public async Task<IActionResult> Vacacionesx()
+        {
+            return View(await _context.ProcessVacaciones.ToListAsync());
+        }
+        //mostrar licencias
+        public async Task<IActionResult> Licenciasx()
+        {
+            return View(await _context.ProcessLicencias.ToListAsync());
+        }
+        //mostrar Permisos
+        public async Task<IActionResult> Permisosx()
+        {
+            return View(await _context.ProcessPermisos.ToListAsync());
+        }
+
+        //comprueba si los id de las tablas a mostrar existen
         private bool MantenimientoEmpleadoExists(int id)
         {
             return _context.MantenimientoEmpleado.Any(e => e.Id == id);

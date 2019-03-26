@@ -1,12 +1,12 @@
 ﻿@model GestionRH.Models.MantenimientoEmpleado
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
 <h1>Edit</h1>
 
-<h4>MantenimientoEmpleado</h4>
+<h4>Mantenimiento Empleado</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -49,9 +49,10 @@
                 <span asp-validation-for="Salario" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <p style="text-decoration-color:red;">Desmarque el Cuadro para inhabilitar el Empleado</p>
                 <label asp-for="Estatus" class="control-label"></label>
                 <input asp-for="Estatus" class="form-control" />
-                <span asp-validation-for="Cargo" class="text-danger"></span>
+                <span asp-validation-for="Estatus" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Cargo" class="control-label"></label>

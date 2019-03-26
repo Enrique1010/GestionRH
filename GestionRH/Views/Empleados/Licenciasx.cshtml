@@ -1,0 +1,54 @@
+﻿@model IEnumerable<GestionRH.Models.ProcessLicencias>
+@{
+    ViewData["Title"] = "Licenciasx";
+}
+
+<h1>Licencias</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model=> model.Empleado)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Desde)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Hasta)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Motivo)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Comentario)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Empleado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Desde)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hasta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Motivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Licencias">Agregar Licencia</a> |
+    <a asp-action="Index">Volver a Lista</a>
+</div>

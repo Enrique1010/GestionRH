@@ -18,7 +18,7 @@ namespace GestionRH.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime Hasta { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy}")]
         public DateTime Correspondiente { get; set; }
         [Required(ErrorMessage ="El Comentario es Requerido")]
         public string Comentario { get; set; } 

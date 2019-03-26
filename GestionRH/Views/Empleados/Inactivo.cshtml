@@ -1,0 +1,86 @@
+﻿@model IEnumerable<GestionRH.Models.MantenimientoEmpleado>
+@{
+    ViewData["Title"] = "Inactivo";
+}
+
+<h1>Empleados Inactivos</h1>
+<br />
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th class="table-dark">
+                @Html.DisplayName("Codigo")
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Departamento)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayName("Ingreso")
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Salario)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayName("Estado")
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            if (item.Estatus == false)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodigoEmpleado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Departamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaIngreso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salario)
+                    </td>
+                    <td>
+                        @if (item.Estatus == true)
+                        {@Html.DisplayName("Activo")}
+                        else if (item.Estatus == false)
+                        {@Html.DisplayName("Inactivo")}
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cargo)
+                    </td>
+                </tr>
+            }
+            else { }
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Volver a Lista</a>
+</div>
+
