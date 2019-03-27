@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GestionRH.Models;
+using GestionRH.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -71,24 +72,27 @@ namespace GestionRH.Controllers
         // GET: MantenimientoEmpleadoes/Create
         public IActionResult Create()
         {
-            return View();
+            DepEmp depb = new DepEmp();
+            depb.Departamento = _context.MantenimientoDepartamento;
+
+            return View(depb);
         }
 
         // POST: MantenimientoEmpleadoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CodigoEmpleado,Nombre,Apellido,Telefono,Departamento,FechaIngreso,Salario,Estatus,Cargo")] MantenimientoEmpleado mantenimientoEmpleado)
+        public async Task<IActionResult> Create([Bind("Id,CodigoEmpleado,Nombre,Apellido,Telefono,Departamento,FechaIngreso,Salario,Estatus,Cargo")] DepEmp dep, MantenimientoEmpleado empleado, string Depart)
         {
             if (ModelState.IsValid)
             {
-                mantenimientoEmpleado.Estatus = true;
-                _context.Add(mantenimientoEmpleado);
+                empleado.Estatus = true;
+                empleado.Departamento = Depart;
+                _context.Add(empleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(mantenimientoEmpleado);
+            return View(dep);
         }
 
         // GET: MantenimientoEmpleadoes/Edit/5
@@ -143,7 +147,15 @@ namespace GestionRH.Controllers
             return View(mantenimientoEmpleado);
         }
 
-
+        //mostrar monto total en bdd
+        public IActionResult NominaTotal(ProcessNominas p, MantenimientoEmpleado empleado)
+        {
+            p.Mes = DateTime.Today;
+            p.Age = DateTime.Now;
+            var nom = from m in _context.MantenimientoEmpleado where (m.Estatus == true) select m.Salario;
+            p.MontoTotal = nom.Sum();
+            return View(p);
+        }
         //guarda el monto total de la nomina en la base de datos
         public async Task<IActionResult> GuardarRegistro(ProcessNominas p, MantenimientoEmpleado empleado)
         {

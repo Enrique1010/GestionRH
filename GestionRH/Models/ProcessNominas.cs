@@ -14,6 +14,7 @@ namespace GestionRH.Models
         [DisplayFormat(DataFormatString = "{0:MM}")]
         public DateTime Mes { get; set; }
         [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:#.##RD$}", ApplyFormatInEditMode = false)]
         public double MontoTotal { get; set; }
     }
 }

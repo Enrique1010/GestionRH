@@ -44,4 +44,5 @@ namespace GestionRH.Models
         [DataType(DataType.Text)]
         public string Cargo { get; set; }
     }
+
 }
