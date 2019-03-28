@@ -25,6 +25,7 @@
         <a asp-action="Vacaciones">Registrar Vacaciones +</a> |
         <a asp-action="Licencias">Agregar Licencias +</a> |
         <a asp-action="Permisos">Agregar Permisos +</a> |
+        <a asp-action="Licencias">Inhabilitar Empleado</a>
         <!--<a asp-action="Inhabilitar">Inhabilitar Empleado -</a>-->
     </p>
 </div>
@@ -110,7 +111,6 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Inhabilitar</a> |
                 </td>
             </tr>
             }

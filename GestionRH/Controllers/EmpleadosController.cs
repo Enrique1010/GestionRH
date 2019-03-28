@@ -264,6 +264,7 @@ namespace GestionRH.Controllers
         {
             return View(await _context.ProcessPermisos.ToListAsync());
         }
+        //delete
 
         //comprueba si los id de las tablas a mostrar existen
         private bool MantenimientoEmpleadoExists(int id)
