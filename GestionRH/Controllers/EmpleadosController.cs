@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GestionRH.Models;
-using GestionRH.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -72,27 +71,41 @@ namespace GestionRH.Controllers
         // GET: MantenimientoEmpleadoes/Create
         public IActionResult Create()
         {
-            DepEmp depb = new DepEmp();
-            depb.Departamento = _context.MantenimientoDepartamento;
+            //obtener todos los departamentos
+            List<string> departamentos = new List<string>();
+            var vd = _context.MantenimientoDepartamento.ToList();
+            foreach (var item in vd)
+            {
+                departamentos.Add(item.Nombre);
+                ViewBag.deps = departamentos;
+            }
+            //obtener todos los cargos
+            List<string> cargos = new List<string>();
+            var vc = _context.MantenimientoCargo.ToList();
+            foreach (var item in vc)
+            {
+                  cargos.Add(item.NombreCargo);
+                  ViewBag.carg = cargos;
+            }
 
-            return View(depb);
+            return View();
         }
 
         // POST: MantenimientoEmpleadoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CodigoEmpleado,Nombre,Apellido,Telefono,Departamento,FechaIngreso,Salario,Estatus,Cargo")] DepEmp dep, MantenimientoEmpleado empleado, string Depart)
+        public async Task<IActionResult> Create([Bind("Id,CodigoEmpleado,Nombre,Apellido,Telefono,Departamento,FechaIngreso,Salario,Estatus,Cargo")] MantenimientoEmpleado empleado)
         {
-            if (ModelState.IsValid)
+
+            if (ModelState.IsValid )
             {
                 empleado.Estatus = true;
-                empleado.Departamento = Depart;
                 _context.Add(empleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(dep);
+            return View(empleado);
         }
 
         // GET: MantenimientoEmpleadoes/Edit/5
@@ -172,6 +185,13 @@ namespace GestionRH.Controllers
         //Registrar Vacaciones para empleados
         public IActionResult Vacaciones()
         {
+            List<string> empleados = new List<string>();
+            var vd = _context.MantenimientoEmpleado.ToList();
+            foreach (var item in vd)
+            {
+                empleados.Add(item.Nombre+" "+item.Apellido);
+                ViewBag.empvacaciones = empleados;
+            }
             return View();
         }
         [HttpPost]
@@ -199,6 +219,13 @@ namespace GestionRH.Controllers
         //Registrar Permisos para empleados
         public IActionResult Permisos()
         {
+            List<string> empleados = new List<string>();
+            var vd = _context.MantenimientoEmpleado.ToList();
+            foreach (var item in vd)
+            {
+                empleados.Add(item.Nombre + " " + item.Apellido);
+                ViewBag.emppermisos = empleados;
+            }
             return View();
         }
         [HttpPost]
@@ -226,6 +253,13 @@ namespace GestionRH.Controllers
         //Registrar Licencias para empleados
         public IActionResult Licencias()
         {
+            List<string> empleados = new List<string>();
+            var vd = _context.MantenimientoEmpleado.ToList();
+            foreach (var item in vd)
+            {
+                empleados.Add(item.Nombre + " " + item.Apellido);
+                ViewBag.emplicencias = empleados;
+            }
             return View();
         }
         [HttpPost]
