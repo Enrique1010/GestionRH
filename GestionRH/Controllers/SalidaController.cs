@@ -41,10 +41,17 @@ namespace GestionRH.Controllers
 
             return View(processSalidaEmpleado);
         }
-
         // GET: Salida/Create
         public IActionResult Create()
         {
+            List<string> empleados = new List<string>();
+            var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == true) select em;
+            foreach (var item in vd)
+            {
+                empleados.Add(item.CodigoEmpleado+". "+item.Nombre+" "+item.Apellido);
+                ViewBag.emps = empleados;
+            }
+
             return View();
         }
 
@@ -61,6 +68,7 @@ namespace GestionRH.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(processSalidaEmpleado);
         }
 

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<GestionRH.Models.ProcessSalidaEmpleado>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Salida de Empleado";
 }
 
-<h1>Index</h1>
+<h1>Salida de Empleado</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Inhabilitar Empleado</a>
 </p>
 <table class="table">
     <thead>
@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Empleado)
             </th>
             <th class="table-dark">
-                @Html.DisplayNameFor(model => model.TipoDeSalida)
+                @Html.DisplayName("Tipo de Salida")
             </th>
             <th class="table-dark">
                 @Html.DisplayNameFor(model => model.Motivo)
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Fecha)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Borrar Registro</a>
             </td>
         </tr>
 }

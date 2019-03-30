@@ -3,7 +3,7 @@
     ViewData["Title"] = "Crear";
 }
 
-<h1>Create</h1>
+<h1>Agregar Empleado</h1>
 
 <h4>Mantenimiento Empleado</h4>
 <hr />
@@ -55,11 +55,6 @@
                 <span asp-validation-for="Salario" class="text-danger"></span>
             </div>
             <br />
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Estatus" /> @Html.DisplayName("Presione para Activar")
-                </label>
-            </div>
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -74,7 +69,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-success" />
             </div>
         </form>
     </div>

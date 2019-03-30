@@ -186,7 +186,7 @@ namespace GestionRH.Controllers
         public IActionResult Vacaciones()
         {
             List<string> empleados = new List<string>();
-            var vd = _context.MantenimientoEmpleado.ToList();
+            var vd = from em  in _context.MantenimientoEmpleado where(em.Estatus == true) select em;
             foreach (var item in vd)
             {
                 empleados.Add(item.Nombre+" "+item.Apellido);
@@ -220,7 +220,7 @@ namespace GestionRH.Controllers
         public IActionResult Permisos()
         {
             List<string> empleados = new List<string>();
-            var vd = _context.MantenimientoEmpleado.ToList();
+            var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == true) select em;
             foreach (var item in vd)
             {
                 empleados.Add(item.Nombre + " " + item.Apellido);
@@ -254,7 +254,7 @@ namespace GestionRH.Controllers
         public IActionResult Licencias()
         {
             List<string> empleados = new List<string>();
-            var vd = _context.MantenimientoEmpleado.ToList();
+            var vd = from em  in _context.MantenimientoEmpleado where(em.Estatus == true) select em;
             foreach (var item in vd)
             {
                 empleados.Add(item.Nombre + " " + item.Apellido);
