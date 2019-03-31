@@ -29,6 +29,26 @@ namespace GestionRH.Controllers
             return View(await _context.MantenimientoEmpleado.ToListAsync());
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Inactivo(string fecha0)
+        {
+            var nombres = from s in _context.ProcessSalidaEmpleado
+                          select s;
+            if (!String.IsNullOrEmpty(fecha0))
+            {
+                fecha0 = null;
+            }
+            else
+            {
+                DateTime fechax = DateTime.Parse(fecha0);
+                nombres = nombres.Where(s => s.Empleado.Equals(fechax) || s.Fecha.Equals(fechax) || fechax == null);
+            }
+
+            return View(await nombres.AsNoTracking().ToListAsync());
+
+        }
+
         //busqueda por nombre y fecha
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -283,21 +303,73 @@ namespace GestionRH.Controllers
             }
             return View(licencias);
         }
+
         //mostrar Vacaciones
         public async Task<IActionResult> Vacacionesx()
         {
             return View(await _context.ProcessVacaciones.ToListAsync());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Vacacionesx(string fecha2)
+        {
+            var nombres = from s in _context.ProcessVacaciones
+                          select s;
+            if (!String.IsNullOrEmpty(fecha2))
+            {
+                DateTime fechax = DateTime.Parse(fecha2);
+                nombres = nombres.Where(s => s.Desde.Equals(fechax) || s.Hasta.Equals(fechax) || fechax == null);
+            }
+
+            return View(await nombres.AsNoTracking().ToListAsync());
+
+        }
+
         //mostrar licencias
         public async Task<IActionResult> Licenciasx()
         {
             return View(await _context.ProcessLicencias.ToListAsync());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Licenciasx(string fecha3)
+        {
+            var nombres = from s in _context.ProcessLicencias
+                          select s;
+            if (!String.IsNullOrEmpty(fecha3))
+            {
+                DateTime fechax = DateTime.Parse(fecha3);
+                nombres = nombres.Where(s => s.Desde.Equals(fechax) || s.Hasta.Equals(fechax) || fechax == null);
+            }
+
+            return View(await nombres.AsNoTracking().ToListAsync());
+
+        }
+
         //mostrar Permisos
         public async Task<IActionResult> Permisosx()
         {
             return View(await _context.ProcessPermisos.ToListAsync());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Permisosx(string fecha4)
+        {
+            var nombres = from s in _context.ProcessPermisos
+                          select s;
+            if (!String.IsNullOrEmpty(fecha4))
+            {
+                DateTime fechax = DateTime.Parse(fecha4);
+                nombres = nombres.Where(s => s.Desde.Equals(fechax) || s.Hasta.Equals(fechax) || fechax == null);
+            }
+
+            return View(await nombres.AsNoTracking().ToListAsync());
+
+        }
+
         //delete
 
         //comprueba si los id de las tablas a mostrar existen

@@ -4,7 +4,15 @@
 }
 
 <h1>Empleados Inactivos</h1>
-<br />
+
+<form asp-action="Inactivos" method="post">
+    <div class="form-actions no-color d-flex justify-content-between" style=" border:solid; border-radius:5px; border-width:2px; padding:0.6px">
+        <b>• Buscar por Nombre</b><input type="search" name="busqueda" value="">
+        <b>• Buscar inactivo: </b><input type="date" name="fecha0" value="">
+        <input type="submit" value="Buscar" class="btn btn-outline-success" />
+    </div>
+</form>
+
 <table class="table table-responsive">
     <thead>
         <tr>

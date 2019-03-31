@@ -14,7 +14,7 @@
                 <label asp-for="Empleado" class="control-label"></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" asp-for="Empleado">Cargos</label>
+                        <label class="input-group-text" asp-for="Empleado">Empleados</label>
                     </div>
                     <select asp-for="Empleado" class="custom-select">
                         @foreach (var itemc in ViewBag.emplicencias)
@@ -53,6 +53,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Volver a Lista Completa</a>
+    <a asp-action="Licenciasx">Volver a Lista Completa</a>
 </div>
 
