@@ -62,12 +62,10 @@ namespace GestionRH.Controllers
             }
             else if (!String.IsNullOrEmpty(fecha))
             {
-                DateTime fechax = DateTime.Parse(fecha);
-                nombres = nombres.Where(s => s.FechaIngreso.Equals(fechax));
+                nombres = nombres.Where(s => s.Departamento.Contains(fecha));
             }
 
             return View(await nombres.AsNoTracking().ToListAsync());
-
         }
 
         // GET: MantenimientoEmpleadoes/Details/5
@@ -183,8 +181,8 @@ namespace GestionRH.Controllers
         //mostrar monto total en bdd
         public IActionResult NominaTotal(ProcessNominas p)
         {
-            p.Mes = DateTime.Today;
-            p.Age = DateTime.Now;
+            p.Mes = DateTime.Today.Month;
+            p.Age = DateTime.Now.Year;
             var nom = from m in _context.MantenimientoEmpleado where (m.Estatus == true) select m.Salario;
             p.MontoTotal = nom.Sum();
             return View(p);
@@ -197,25 +195,25 @@ namespace GestionRH.Controllers
         //busqueda por fecha de las nominas
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NM(string fechanom)
+        public async Task<IActionResult> NM(string fechanom, string fechaye)
         {
             var nombres = from s in _context.ProcessNominas
                           select s;
+
             if (!String.IsNullOrEmpty(fechanom))
             {
-                DateTime fechax = DateTime.Parse(fechanom);
-                nombres = nombres.Where(s => s.Mes.Equals(fechax) || s.Age.Equals(fechax) || fechax == null);
+                int fechax = Int32.Parse(fechanom);
+                nombres = nombres.Where(s => s.Mes == fechax);
             }
 
             return View(await nombres.AsNoTracking().ToListAsync());
-
         }
 
         //guarda el monto total de la nomina en la base de datos
         public async Task<IActionResult> GuardarRegistro(ProcessNominas p)
         {
-                p.Mes = DateTime.Today;
-                p.Age = DateTime.Now;
+                p.Mes = DateTime.Today.Month;
+                p.Age = DateTime.Now.Year;
                 var nom = from m in _context.MantenimientoEmpleado where (m.Estatus == true) select m.Salario;
                 p.MontoTotal = nom.Sum();
                 _context.Add(p);

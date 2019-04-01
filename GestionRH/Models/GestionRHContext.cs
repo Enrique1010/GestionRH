@@ -127,13 +127,13 @@ namespace GestionRH.Models
             {
                 entity.ToTable("Process_nominas");
 
-                entity.Property(e => e.Age).HasColumnType("datetime");
+                entity.Property(e => e.Age);
 
                 entity.Property(e => e.Mes)
-                    .HasColumnName("mes")
-                    .HasColumnType("datetime");
+                    .HasColumnName("mes");
 
-                entity.Property(e => e.MontoTotal).HasColumnName("monto_total");
+                entity.Property(e => e.MontoTotal)
+                .HasColumnName("monto_total");
             });
 
             modelBuilder.Entity<ProcessPermisos>(entity =>
