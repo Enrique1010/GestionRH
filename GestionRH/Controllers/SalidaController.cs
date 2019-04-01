@@ -44,12 +44,8 @@ namespace GestionRH.Controllers
         // GET: Salida/Create
         public IActionResult Create()
         {
-            List<string> empleados = new List<string>();
-            var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == false) select em;
-
-            try
-            {
-
+                List<string> empleados = new List<string>();
+                var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == false) select em;
                 foreach (var item in vd)
                 {
                     empleados.Add(item.CodigoEmpleado + ". " + item.Nombre + " " + item.Apellido);
@@ -57,12 +53,6 @@ namespace GestionRH.Controllers
                 }
 
                 return View();
-
-            }
-            catch(NullReferenceException e)
-            {
-                return View();
-            }
         }
 
         // POST: Salida/Create
@@ -79,7 +69,7 @@ namespace GestionRH.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(processSalidaEmpleado);
+            return View("Fallos");
         }
 
         // GET: Salida/Edit/5
@@ -160,6 +150,12 @@ namespace GestionRH.Controllers
             _context.ProcessSalidaEmpleado.Remove(processSalidaEmpleado);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //registrar fallos en una vista
+        public IActionResult Fallos()
+        {
+            return View();
         }
 
         private bool ProcessSalidaEmpleadoExists(int id)

@@ -8,10 +8,10 @@ namespace GestionRH.Models
     {
         public int Id { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime Age { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy}")]
         public DateTime Mes { get; set; }
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:#.##RD$}", ApplyFormatInEditMode = false)]

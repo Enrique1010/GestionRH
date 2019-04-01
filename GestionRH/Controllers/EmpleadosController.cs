@@ -181,7 +181,7 @@ namespace GestionRH.Controllers
         }
 
         //mostrar monto total en bdd
-        public IActionResult NominaTotal(ProcessNominas p, MantenimientoEmpleado empleado)
+        public IActionResult NominaTotal(ProcessNominas p)
         {
             p.Mes = DateTime.Today;
             p.Age = DateTime.Now;
@@ -189,8 +189,30 @@ namespace GestionRH.Controllers
             p.MontoTotal = nom.Sum();
             return View(p);
         }
+        //muestra la tabla process nomina
+        public async Task<IActionResult> NM()
+        {
+            return View(await _context.ProcessNominas.ToListAsync());
+        }
+        //busqueda por fecha de las nominas
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> NM(string fechanom)
+        {
+            var nombres = from s in _context.ProcessNominas
+                          select s;
+            if (!String.IsNullOrEmpty(fechanom))
+            {
+                DateTime fechax = DateTime.Parse(fechanom);
+                nombres = nombres.Where(s => s.Mes.Equals(fechax) || s.Age.Equals(fechax) || fechax == null);
+            }
+
+            return View(await nombres.AsNoTracking().ToListAsync());
+
+        }
+
         //guarda el monto total de la nomina en la base de datos
-        public async Task<IActionResult> GuardarRegistro(ProcessNominas p, MantenimientoEmpleado empleado)
+        public async Task<IActionResult> GuardarRegistro(ProcessNominas p)
         {
                 p.Mes = DateTime.Today;
                 p.Age = DateTime.Now;
@@ -234,7 +256,7 @@ namespace GestionRH.Controllers
                     return RedirectToAction(nameof(Index));
                 }    
             }
-            return View(vacaciones);
+            return View("FallosVacaciones");
         }
         //Registrar Permisos para empleados
         public IActionResult Permisos()
@@ -248,26 +270,24 @@ namespace GestionRH.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         //procesar los permisos en la bdd
         public async Task<IActionResult> Permisos([Bind("Id,Empleado,Desde,Hasta,Comentario")] ProcessPermisos permisos)
         {
-            if (ModelState.IsValid)
+        if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Add(permisos);
-                    //_context.Update(empleado);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+                try {
+                _context.Add(permisos);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }catch (DbUpdateConcurrencyException)
+            {
+                return RedirectToAction(nameof(Index));
             }
-            return View(permisos);
+        }
+            return View("FallosPermisos");
         }
 
         //Registrar Licencias para empleados
@@ -301,7 +321,7 @@ namespace GestionRH.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            return View(licencias);
+            return View("FallosLicencias");
         }
 
         //mostrar Vacaciones
@@ -370,7 +390,20 @@ namespace GestionRH.Controllers
 
         }
 
-        //delete
+        //registrar fallos
+        public IActionResult FallosPermisos()
+        {
+            return View();
+        }
+        public IActionResult FallosVacaciones()
+        {
+            return View();
+        }
+        public IActionResult FallosLicencias()
+        {
+            return View();
+        }
+
 
         //comprueba si los id de las tablas a mostrar existen
         private bool MantenimientoEmpleadoExists(int id)

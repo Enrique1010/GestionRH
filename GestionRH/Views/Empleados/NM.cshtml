@@ -1,0 +1,47 @@
+﻿@model IEnumerable<GestionRH.Models.ProcessNominas>
+
+@{
+    ViewData["Title"] = "NominasMensuales";
+}
+
+<h1>Nominas Mensuales</h1>
+
+
+<form asp-action="NM" method="post">
+    <div class="form-actions no-color d-flex justify-content-between" style=" border:solid; border-radius:5px; border-width:2px; padding:0.6px">
+        <input type="date" name="fechanom" value="" class="form-control" placeholder="Buscar por fecha...">
+        <input type="submit" value="Buscar" class="btn btn-outline-success form-control" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="table-dark">
+                @Html.DisplayName("Año")
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.Mes)
+            </th>
+            <th class="table-dark">
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </th>
+            <th class="table-dark"></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoTotal)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

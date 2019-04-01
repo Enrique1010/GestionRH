@@ -36,7 +36,7 @@ namespace GestionRH
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var connection = "Data Source=DESKTOP-PLVE19D;Initial Catalog=GestionRH;Integrated Security=True";
+            var connection = "Data Source=Enrique-PC;Initial Catalog=GestionRH;Integrated Security=True";
             services.AddDbContext<GestionRHContext>(options => options.UseSqlServer(connection));
         }
 
