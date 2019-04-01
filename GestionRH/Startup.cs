@@ -62,7 +62,7 @@ namespace GestionRH
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Empleados}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

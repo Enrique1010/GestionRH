@@ -38,7 +38,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="Index">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-fw fa-tachometer-alt" style="font-style: italic"></i>
                     <span>Inicio</span>
                 </a>
@@ -54,7 +54,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="Empleados">
+                <a class="nav-link collapsed" asp-controller="Empleados" asp-action="Index">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Empleado</span>
                 </a>
@@ -72,7 +72,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="Salida">
+                <a class="nav-link collapsed" asp-controller="Salida" asp-action="Index">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Salida de Empleados</span>
                 </a>
@@ -98,11 +98,11 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="Empleados/NominaTotal">Ver Nomina Total</a>
-                        <a class="collapse-item" href="Empleados/Vacacionesx">Ver Vacaciones</a>
-                        <a class="collapse-item" href="Empleados/Licenciasx">Ver Licencias</a>
-                        <a class="collapse-item" href="Empleados/Permisosx">Ver Permisos</a>
-                        <a class="collapse-item" href="Empleados/Inactivo">Ver Inactivos</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="NominaTotal">Ver Nomina Total</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Vacacionesx">Ver Vacaciones</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Licenciasx">Ver Licencias</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Permisosx">Ver Permisos</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Inactivo">Ver Inactivos</a>
                     </div>
                 </div>
             </li>
@@ -114,17 +114,17 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="Empleados/Create">Agregar Empleado +</a>
-                        <a class="collapse-item" href="Empleados/Vacaciones">Registrar Vacaciones +</a>
-                        <a class="collapse-item" href="Empleados/Licencias">Agregar Licencias +</a>
-                        <a class="collapse-item" href="Empleados/Permisos">Agregar Permisos +</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Create">Agregar Empleado +</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Vacaciones">Registrar Vacaciones +</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Licencias">Agregar Licencias +</a>
+                        <a class="collapse-item" asp-controller="Empleados" asp-action="Permisos">Agregar Permisos +</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="Home/Privacy">
+                <a class="nav-link" asp-controller="Home" asp-action="About">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Informacion</span>
                 </a>
@@ -139,6 +139,7 @@
             </div>
 
         </ul>
+
         <!-- End of Sidebar -->
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>

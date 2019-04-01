@@ -45,14 +45,24 @@ namespace GestionRH.Controllers
         public IActionResult Create()
         {
             List<string> empleados = new List<string>();
-            var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == true) select em;
-            foreach (var item in vd)
-            {
-                empleados.Add(item.CodigoEmpleado+". "+item.Nombre+" "+item.Apellido);
-                ViewBag.emps = empleados;
-            }
+            var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == false) select em;
 
-            return View();
+            try
+            {
+
+                foreach (var item in vd)
+                {
+                    empleados.Add(item.CodigoEmpleado + ". " + item.Nombre + " " + item.Apellido);
+                    ViewBag.emps = empleados;
+                }
+
+                return View();
+
+            }
+            catch(NullReferenceException e)
+            {
+                return View();
+            }
         }
 
         // POST: Salida/Create
