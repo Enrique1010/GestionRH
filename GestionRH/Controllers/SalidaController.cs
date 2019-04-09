@@ -45,10 +45,10 @@ namespace GestionRH.Controllers
         public IActionResult Create()
         {
                 List<string> empleados = new List<string>();
-                var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == false) select em;
+                var vd = from em in _context.MantenimientoEmpleado where (em.Estatus == true) select em;
                 foreach (var item in vd)
                 {
-                    empleados.Add(item.CodigoEmpleado + ". " + item.Nombre + " " + item.Apellido);
+                    empleados.Add(item.Nombre);
                     ViewBag.emps = empleados;
                 }
 
@@ -64,6 +64,8 @@ namespace GestionRH.Controllers
         {
             if (ModelState.IsValid)
             {
+                var salida = (from m in _context.MantenimientoEmpleado where m.Nombre == processSalidaEmpleado.Empleado select m).First();
+                salida.Estatus = false;
                 _context.Add(processSalidaEmpleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
